@@ -31,6 +31,7 @@ import org.apache.paimon.types.DateType;
 import org.apache.paimon.types.DecimalType;
 import org.apache.paimon.types.DoubleType;
 import org.apache.paimon.types.FloatType;
+import org.apache.paimon.types.GeometryType;
 import org.apache.paimon.types.IntType;
 import org.apache.paimon.types.LocalZonedTimestampType;
 import org.apache.paimon.types.MapType;
@@ -216,6 +217,11 @@ public class HiveTypeUtils {
                             .map(type -> type.accept(this))
                             .collect(Collectors.toList());
             return TypeInfoFactory.getStructTypeInfo(fieldNames, typeInfos);
+        }
+
+        @Override
+        public TypeInfo visit(GeometryType geometryType) {
+            return TypeInfoFactory.binaryTypeInfo;
         }
 
         @Override

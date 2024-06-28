@@ -96,6 +96,7 @@ under the License.
         <flink.forkCount>1C</flink.forkCount>
         <flink.reuseForks>true</flink.reuseForks>
         <testcontainers.version>1.19.1</testcontainers.version>
+        <sedona.version>1.6.0</sedona.version>
 
         <!-- Can be set to any value to reproduce a specific build. -->
         <test.randomization.seed/>

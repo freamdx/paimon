@@ -92,6 +92,8 @@ public class OrcSplitReaderUtil {
                             rowType.getFieldNames().get(i), toOrcType(rowType.getTypeAt(i)));
                 }
                 return struct;
+            case GEOMETRY:
+                return TypeDescription.createBinary();
             default:
                 throw new UnsupportedOperationException("Unsupported type: " + type);
         }
