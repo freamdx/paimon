@@ -113,6 +113,7 @@ public class ParquetSplitReaderUtil {
             case VARCHAR:
             case BINARY:
             case VARBINARY:
+            case GEOMETRY:
                 return new BytesColumnReader(
                         descriptors.get(0), pages.getPageReader(descriptors.get(0)));
             case TIMESTAMP_WITHOUT_TIME_ZONE:
@@ -210,6 +211,7 @@ public class ParquetSplitReaderUtil {
             case VARCHAR:
             case BINARY:
             case VARBINARY:
+            case GEOMETRY:
                 checkArgument(
                         typeName == PrimitiveType.PrimitiveTypeName.BINARY,
                         "Unexpected type: %s",

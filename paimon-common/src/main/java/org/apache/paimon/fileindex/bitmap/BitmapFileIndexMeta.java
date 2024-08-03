@@ -30,6 +30,7 @@ import org.apache.paimon.types.DateType;
 import org.apache.paimon.types.DecimalType;
 import org.apache.paimon.types.DoubleType;
 import org.apache.paimon.types.FloatType;
+import org.apache.paimon.types.GeometryType;
 import org.apache.paimon.types.IntType;
 import org.apache.paimon.types.LocalZonedTimestampType;
 import org.apache.paimon.types.MapType;
@@ -372,6 +373,11 @@ public class BitmapFileIndexMeta {
         @Override
         public final R visit(RowType rowType) {
             throw new UnsupportedOperationException("Does not support type row");
+        }
+
+        @Override
+        public final R visit(GeometryType geometryType) {
+            throw new UnsupportedOperationException("Unsupported type: geometry");
         }
     }
 }

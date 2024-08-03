@@ -296,4 +296,9 @@ public class InternalRowToSizeVisitor
             }
         };
     }
+
+    @Override
+    public BiFunction<DataGetters, Integer, Integer> visit(GeometryType geometryType) {
+        throw new UnsupportedOperationException("Unsupported type: geometry");
+    }
 }

@@ -226,6 +226,13 @@ under the License.
             <type>test-jar</type>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.apache.sedona</groupId>
+            <artifactId>sedona-spark-shaded-3.0_${scala.binary.version}</artifactId>
+            <version>${sedona.version}</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>

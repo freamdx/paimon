@@ -76,6 +76,7 @@ public class ParquetSchemaConverter {
                         .named(name);
             case BINARY:
             case VARBINARY:
+            case GEOMETRY:
                 return Types.primitive(PrimitiveType.PrimitiveTypeName.BINARY, repetition)
                         .named(name);
             case DECIMAL:

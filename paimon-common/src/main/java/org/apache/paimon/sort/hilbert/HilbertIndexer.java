@@ -34,6 +34,7 @@ import org.apache.paimon.types.DateType;
 import org.apache.paimon.types.DecimalType;
 import org.apache.paimon.types.DoubleType;
 import org.apache.paimon.types.FloatType;
+import org.apache.paimon.types.GeometryType;
 import org.apache.paimon.types.IntType;
 import org.apache.paimon.types.LocalZonedTimestampType;
 import org.apache.paimon.types.MapType;
@@ -277,6 +278,11 @@ public class HilbertIndexer implements Serializable {
         @Override
         public HProcessFunction visit(RowType rowType) {
             throw new RuntimeException("Unsupported type");
+        }
+
+        @Override
+        public HProcessFunction visit(GeometryType geometryType) {
+            throw new UnsupportedOperationException("Unsupported type: geometry");
         }
     }
 

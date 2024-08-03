@@ -31,6 +31,7 @@ import org.apache.paimon.types.DateType;
 import org.apache.paimon.types.DecimalType;
 import org.apache.paimon.types.DoubleType;
 import org.apache.paimon.types.FloatType;
+import org.apache.paimon.types.GeometryType;
 import org.apache.paimon.types.IntType;
 import org.apache.paimon.types.LocalZonedTimestampType;
 import org.apache.paimon.types.MapType;
@@ -177,6 +178,11 @@ public interface FastHash {
         @Override
         public FastHash visit(RowType rowType) {
             throw new UnsupportedOperationException("Does not support type row");
+        }
+
+        @Override
+        public FastHash visit(GeometryType geometryType) {
+            throw new UnsupportedOperationException("Unsupported type: geometry");
         }
 
         // Thomas Wang's integer hash function
