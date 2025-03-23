@@ -301,6 +301,7 @@ public final class DataTypeJsonParser {
         NULL,
         RAW,
         LEGACY,
+        GEOMETRY,
         NOT
     }
 
@@ -515,6 +516,8 @@ public final class DataTypeJsonParser {
                     return parseTimestampType();
                 case TIMESTAMP_LTZ:
                     return parseTimestampLtzType();
+                case GEOMETRY:
+                    return new GeometryType();
                 default:
                     throw parsingError("Unsupported type: " + token().value);
             }

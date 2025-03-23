@@ -52,6 +52,7 @@ import org.apache.paimon.types.DateType;
 import org.apache.paimon.types.DecimalType;
 import org.apache.paimon.types.DoubleType;
 import org.apache.paimon.types.FloatType;
+import org.apache.paimon.types.GeometryType;
 import org.apache.paimon.types.IntType;
 import org.apache.paimon.types.LocalZonedTimestampType;
 import org.apache.paimon.types.MapType;
@@ -560,6 +561,29 @@ public interface Arrow2PaimonVectorConverter {
                         public VectorizedColumnBatch getBatch() {
                             init();
                             return vectorizedColumnBatch;
+                        }
+                    };
+        }
+
+        @Override
+        public Arrow2PaimonVectorConverter visit(GeometryType geometryType) {
+            return vector ->
+                    new BytesColumnVector() {
+
+                        @Override
+                        public boolean isNullAt(int index) {
+                            return vector.isNull(index);
+                        }
+
+                        @Override
+                        public Bytes getBytes(int index) {
+                            byte[] bytes = ((VarBinaryVector) vector).getObject(index);
+                            return new Bytes(bytes, 0, bytes.length) {
+                                @Override
+                                public byte[] getBytes() {
+                                    return bytes;
+                                }
+                            };
                         }
                     };
         }

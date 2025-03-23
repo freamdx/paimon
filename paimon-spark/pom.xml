@@ -35,6 +35,8 @@ under the License.
 
     <properties>
         <aws.version>1.12.319</aws.version>
+        <compact.version>3.5</compact.version>
+        <sedona.version>1.7.1</sedona.version>
     </properties>
 
     <modules>
@@ -291,6 +293,13 @@ under the License.
             <artifactId>aws-java-sdk-s3</artifactId>
             <version>${aws.version}</version>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.sedona</groupId>
+            <artifactId>sedona-spark-shaded-${compact.version}_${scala.binary.version}</artifactId>
+            <version>${sedona.version}</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 

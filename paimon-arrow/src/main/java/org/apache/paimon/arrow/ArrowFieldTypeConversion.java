@@ -29,6 +29,7 @@ import org.apache.paimon.types.DateType;
 import org.apache.paimon.types.DecimalType;
 import org.apache.paimon.types.DoubleType;
 import org.apache.paimon.types.FloatType;
+import org.apache.paimon.types.GeometryType;
 import org.apache.paimon.types.IntType;
 import org.apache.paimon.types.LocalZonedTimestampType;
 import org.apache.paimon.types.MapType;
@@ -180,6 +181,12 @@ public class ArrowFieldTypeConversion {
         @Override
         public FieldType visit(RowType rowType) {
             return new FieldType(rowType.isNullable(), Types.MinorType.STRUCT.getType(), null);
+        }
+
+        @Override
+        public FieldType visit(GeometryType geometryType) {
+            return new FieldType(
+                    geometryType.isNullable(), Types.MinorType.VARBINARY.getType(), null);
         }
     }
 }

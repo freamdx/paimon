@@ -271,6 +271,7 @@ public class NestedPrimitiveColumnReader implements ColumnReader<WritableColumnV
             case VARCHAR:
             case BINARY:
             case VARBINARY:
+            case GEOMETRY:
                 return dataColumn.readBytes();
             case BOOLEAN:
                 return dataColumn.readBoolean();
@@ -327,6 +328,7 @@ public class NestedPrimitiveColumnReader implements ColumnReader<WritableColumnV
             case VARCHAR:
             case BINARY:
             case VARBINARY:
+            case GEOMETRY:
                 return dictionary.readBytes(dictionaryValue);
             case DATE:
             case TIME_WITHOUT_TIME_ZONE:
@@ -381,6 +383,7 @@ public class NestedPrimitiveColumnReader implements ColumnReader<WritableColumnV
             case VARCHAR:
             case BINARY:
             case VARBINARY:
+            case GEOMETRY:
                 HeapBytesVector heapBytesVector = new HeapBytesVector(total);
                 for (int i = 0; i < valueList.size(); i++) {
                     byte[] src = ((List<byte[]>) valueList).get(i);

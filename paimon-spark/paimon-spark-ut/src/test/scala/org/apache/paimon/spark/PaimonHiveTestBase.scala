@@ -19,8 +19,10 @@
 package org.apache.paimon.spark
 
 import org.apache.paimon.hive.TestHiveMetastore
+import org.apache.paimon.spark.extensions.PaimonSparkSessionExtensions
 
 import org.apache.hadoop.conf.Configuration
+import org.apache.sedona.sql.SedonaSqlExtensions
 import org.apache.spark.SparkConf
 import org.apache.spark.sql.paimon.Utils
 
@@ -53,6 +55,11 @@ class PaimonHiveTestBase extends PaimonSparkTestBase {
       .set(s"spark.sql.catalog.$paimonHiveCatalogName.metastore", "hive")
       .set(s"spark.sql.catalog.$paimonHiveCatalogName.warehouse", tempHiveDBDir.getCanonicalPath)
       .set(s"spark.sql.catalog.$paimonHiveCatalogName.uri", hiveUri)
+      .set(
+        "spark.sql.extensions",
+        classOf[SedonaSqlExtensions].getName + "," + classOf[PaimonSparkSessionExtensions].getName)
+      .set("spark.serializer", "org.apache.spark.serializer.KryoSerializer")
+      .set("spark.kryo.registrator", "org.apache.sedona.core.serde.SedonaKryoRegistrator")
   }
 
   override protected def beforeAll(): Unit = {

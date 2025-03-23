@@ -179,6 +179,17 @@ public class EqualiserCodeGeneratorTest {
                                 GenericRow.of(31, BinaryString.fromString("32")),
                                 GenericRow.of(31, BinaryString.fromString("33"))),
                         new InternalRowSerializer(DataTypes.INT(), DataTypes.VARCHAR(2))));
+        byte[] geoL = {
+            22, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, -16, 63, 0, 0, 0, 0, 0, 0, 0, 64, 0, 0, 0, 0,
+            0, 0, 8, 64
+        };
+        byte[] geoR = {
+            25, 0, 16, -26, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, -16, 63, 0, 0, 0, 0, 0, 0, 0, 64, 0, 0, 0,
+            0, 0, 0, 8, 64, 0, 0, 0, 0, 0, 0, 16, 64
+        };
+        TEST_DATA.put(
+                DataTypeRoot.GEOMETRY,
+                new GeneratedData(DataTypes.GEOMETRY(), Pair.of(geoL, geoR)));
     }
 
     @ParameterizedTest

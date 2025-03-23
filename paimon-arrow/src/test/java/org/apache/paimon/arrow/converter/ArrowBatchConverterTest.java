@@ -102,7 +102,7 @@ public class ArrowBatchConverterTest {
     private static final RowType PRIMITIVE_TYPE;
 
     static {
-        int cnt = 18;
+        int cnt = 19;
         NULLABLE = new boolean[cnt];
         for (int i = 0; i < cnt; i++) {
             NULLABLE[i] = RND.nextBoolean();
@@ -131,6 +131,7 @@ public class ArrowBatchConverterTest {
                         17,
                         "timestampLZ9",
                         DataTypes.TIMESTAMP_WITH_LOCAL_TIME_ZONE(9).copy(NULLABLE[17])));
+        dataFields.add(new DataField(18, "geometry", DataTypes.GEOMETRY().copy(NULLABLE[18])));
         PRIMITIVE_TYPE = new RowType(dataFields);
     }
 
@@ -935,7 +936,7 @@ public class ArrowBatchConverterTest {
     }
 
     private Object[] randomRowValues(boolean[] nullable) {
-        Object[] values = new Object[18];
+        Object[] values = new Object[19];
         // The orc char reader will trim the string. See TreeReaderFactory.CharTreeReader
         values[0] = BinaryString.fromString(StringUtils.getRandomString(RND, 9, 9) + "A");
         values[1] = BinaryString.fromString(StringUtils.getRandomString(RND, 1, 19) + "A");
@@ -955,8 +956,9 @@ public class ArrowBatchConverterTest {
         values[15] = Timestamp.fromEpochMillis(RND.nextInt(1000));
         values[16] = Timestamp.fromEpochMillis(RND.nextInt(1000), RND.nextInt(1000) * 1000);
         values[17] = Timestamp.fromEpochMillis(RND.nextInt(1000), RND.nextInt(1000_000));
+        values[18] = randomBytes(20, 20);
 
-        for (int i = 0; i < 18; i++) {
+        for (int i = 0; i < 19; i++) {
             if (nullable[i] && RND.nextBoolean()) {
                 values[i] = null;
             }

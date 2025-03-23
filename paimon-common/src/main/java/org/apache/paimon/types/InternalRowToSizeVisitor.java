@@ -296,4 +296,15 @@ public class InternalRowToSizeVisitor
             }
         };
     }
+
+    @Override
+    public BiFunction<DataGetters, Integer, Integer> visit(GeometryType geometryType) {
+        return (row, index) -> {
+            if (row.isNullAt(index)) {
+                return NULL_SIZE;
+            } else {
+                return row.getBinary(index).length;
+            }
+        };
+    }
 }

@@ -107,6 +107,7 @@ public class ParquetSplitReaderUtil {
             case VARCHAR:
             case BINARY:
             case VARBINARY:
+            case GEOMETRY:
                 if (descriptors.get(0).getPrimitiveType().getPrimitiveTypeName()
                         == PrimitiveType.PrimitiveTypeName.FIXED_LEN_BYTE_ARRAY) {
                     return new FixedLenBytesBinaryColumnReader(
@@ -202,6 +203,7 @@ public class ParquetSplitReaderUtil {
             case CHAR:
             case VARCHAR:
             case VARBINARY:
+            case GEOMETRY:
                 checkArgument(
                         typeName == PrimitiveType.PrimitiveTypeName.BINARY,
                         "Unexpected type: %s",

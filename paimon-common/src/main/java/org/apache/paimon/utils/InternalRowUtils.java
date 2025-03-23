@@ -283,6 +283,7 @@ public class InternalRowUtils {
                 break;
             case BINARY:
             case VARBINARY:
+            case GEOMETRY:
                 ret = byteArrayCompare((byte[]) x, (byte[]) y);
                 break;
             case VARCHAR:

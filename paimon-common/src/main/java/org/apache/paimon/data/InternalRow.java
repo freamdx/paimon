@@ -178,6 +178,7 @@ public interface InternalRow extends DataGetters {
                 break;
             case BINARY:
             case VARBINARY:
+            case GEOMETRY:
                 fieldGetter = row -> row.getBinary(fieldPos);
                 break;
             case DECIMAL:

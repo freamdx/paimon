@@ -42,6 +42,7 @@ import org.apache.paimon.types.DateType;
 import org.apache.paimon.types.DecimalType;
 import org.apache.paimon.types.DoubleType;
 import org.apache.paimon.types.FloatType;
+import org.apache.paimon.types.GeometryType;
 import org.apache.paimon.types.IntType;
 import org.apache.paimon.types.LocalZonedTimestampType;
 import org.apache.paimon.types.MapType;
@@ -237,6 +238,17 @@ public class ParquetVectorUpdaterFactory {
         @Override
         public UpdaterFactory visit(RowType rowType) {
             throw new RuntimeException("Row type is not supported");
+        }
+
+        @Override
+        public UpdaterFactory visit(GeometryType geometryType) {
+            return c -> {
+                if (c.getPrimitiveType().getPrimitiveTypeName()
+                        == PrimitiveType.PrimitiveTypeName.FIXED_LEN_BYTE_ARRAY) {
+                    return new FixedLenByteArrayUpdater(c.getPrimitiveType().getTypeLength());
+                }
+                return new BinaryUpdater();
+            };
         }
     }
 

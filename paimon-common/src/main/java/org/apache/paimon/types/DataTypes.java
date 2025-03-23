@@ -151,6 +151,10 @@ public class DataTypes {
         return new MultisetType(elementType);
     }
 
+    public static GeometryType GEOMETRY() {
+        return new GeometryType();
+    }
+
     public static OptionalInt getPrecision(DataType dataType) {
         return dataType.accept(PRECISION_EXTRACTOR);
     }

@@ -33,6 +33,7 @@ under the License.
 
     <properties>
         <spark.version>3.5.3</spark.version>
+        <compact.version>3.5</compact.version>
     </properties>
 
     <dependencies>
