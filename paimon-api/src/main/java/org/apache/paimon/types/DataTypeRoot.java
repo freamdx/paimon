@@ -108,7 +108,9 @@ public enum DataTypeRoot {
 
     MAP(DataTypeFamily.CONSTRUCTED, DataTypeFamily.EXTENSION),
 
-    ROW(DataTypeFamily.CONSTRUCTED);
+    ROW(DataTypeFamily.CONSTRUCTED),
+
+    GEOMETRY(DataTypeFamily.PREDEFINED, DataTypeFamily.BINARY_STRING);
 
     private final Set<DataTypeFamily> families;
 

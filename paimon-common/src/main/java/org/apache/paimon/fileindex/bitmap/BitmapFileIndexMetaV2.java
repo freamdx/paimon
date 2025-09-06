@@ -23,6 +23,7 @@ import org.apache.paimon.fs.SeekableInputStream;
 import org.apache.paimon.options.MemorySize;
 import org.apache.paimon.options.Options;
 import org.apache.paimon.types.DataType;
+import org.apache.paimon.types.GeometryType;
 
 import java.io.BufferedInputStream;
 import java.io.DataInput;
@@ -152,6 +153,11 @@ public class BitmapFileIndexMetaV2 extends BitmapFileIndexMeta {
     public static Comparator<Object> getComparator(DataType dataType) {
         return dataType.accept(
                 new BitmapTypeVisitor<Comparator<Object>>() {
+                    @Override
+                    public Comparator<Object> visit(GeometryType geometryType) {
+                        throw new UnsupportedOperationException("Unsupported type: geometry");
+                    }
+
                     @Override
                     public Comparator<Object> visitBinaryString() {
                         return Comparator.comparing(o -> ((BinaryString) o));

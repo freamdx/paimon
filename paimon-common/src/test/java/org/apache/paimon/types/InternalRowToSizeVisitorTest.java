@@ -91,6 +91,7 @@ public class InternalRowToSizeVisitorTest {
                                                                 DataTypes.MULTISET(
                                                                         DataTypes.STRING()))))))
                         .field("a23", DataTypes.MULTISET(DataTypes.STRING()))
+                        .field("a24", DataTypes.GEOMETRY())
                         .build();
 
         InternalRowToSizeVisitor internalRowToSizeVisitor = new InternalRowToSizeVisitor();
@@ -102,7 +103,7 @@ public class InternalRowToSizeVisitorTest {
 
     @Test
     void testCalculatorSize() {
-        GenericRow row = new GenericRow(24);
+        GenericRow row = new GenericRow(25);
 
         row.setField(0, 1);
         Assertions.assertThat(feildSizeCalculator.get(0).apply(row, 0)).isEqualTo(4);
@@ -191,5 +192,8 @@ public class InternalRowToSizeVisitorTest {
         Assertions.assertThat(feildSizeCalculator.get(22).apply(row, 22)).isEqualTo(6);
 
         Assertions.assertThat(feildSizeCalculator.get(23).apply(row, 23)).isEqualTo(0);
+
+        row.setField(24, "GEOMETRY EMPTY".getBytes());
+        Assertions.assertThat(feildSizeCalculator.get(24).apply(row, 24)).isEqualTo(14);
     }
 }

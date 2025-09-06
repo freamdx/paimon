@@ -31,6 +31,7 @@ import org.apache.paimon.types.DateType;
 import org.apache.paimon.types.DecimalType;
 import org.apache.paimon.types.DoubleType;
 import org.apache.paimon.types.FloatType;
+import org.apache.paimon.types.GeometryType;
 import org.apache.paimon.types.IntType;
 import org.apache.paimon.types.LocalZonedTimestampType;
 import org.apache.paimon.types.MapType;
@@ -45,6 +46,7 @@ import org.apache.paimon.types.VarCharType;
 import org.apache.paimon.types.VariantType;
 
 import org.apache.spark.sql.paimon.shims.SparkShimLoader;
+import org.apache.spark.sql.sedona_sql.UDT.GeometryUDT;
 import org.apache.spark.sql.types.DataType;
 import org.apache.spark.sql.types.DataTypes;
 import org.apache.spark.sql.types.LongType;
@@ -279,6 +281,11 @@ public class SparkTypeUtils {
         }
 
         @Override
+        public DataType visit(GeometryType geometryType) {
+            return new GeometryUDT();
+        }
+
+        @Override
         protected DataType defaultMethod(org.apache.paimon.types.DataType dataType) {
             throw new UnsupportedOperationException("Unsupported type: " + dataType);
         }
@@ -323,6 +330,9 @@ public class SparkTypeUtils {
                                 ((org.apache.spark.sql.types.ArrayType) type).elementType(),
                                 visitor,
                                 atomicInteger));
+
+            } else if (type instanceof GeometryUDT) {
+                return new GeometryType();
 
             } else if (type instanceof UserDefinedType) {
                 throw new UnsupportedOperationException("User-defined types are not supported");

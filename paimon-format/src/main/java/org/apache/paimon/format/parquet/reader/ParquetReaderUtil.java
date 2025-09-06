@@ -90,6 +90,7 @@ public class ParquetReaderUtil {
             case CHAR:
             case VARCHAR:
             case VARBINARY:
+            case GEOMETRY:
                 return new HeapBytesVector(batchSize);
             case BINARY:
                 return new HeapBytesVector(batchSize);

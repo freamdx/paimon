@@ -27,6 +27,7 @@ import org.apache.paimon.spark.extensions.PaimonSparkSessionExtensions
 import org.apache.paimon.spark.sql.{SparkVersionSupport, WithTableOptions}
 import org.apache.paimon.table.FileStoreTable
 
+import org.apache.sedona.sql.SedonaSqlExtensions
 import org.apache.spark.SparkConf
 import org.apache.spark.sql.QueryTest
 import org.apache.spark.sql.connector.catalog.{Identifier => SparkIdentifier}
@@ -73,8 +74,11 @@ class PaimonSparkTestBase
       .set("spark.sql.warehouse.dir", tempDBDir.getCanonicalPath)
       .set("spark.sql.catalog.paimon", classOf[SparkCatalog].getName)
       .set("spark.sql.catalog.paimon.warehouse", tempDBDir.getCanonicalPath)
-      .set("spark.sql.extensions", classOf[PaimonSparkSessionExtensions].getName)
+      .set(
+        "spark.sql.extensions",
+        classOf[SedonaSqlExtensions].getName + "," + classOf[PaimonSparkSessionExtensions].getName)
       .set("spark.serializer", serializer)
+      .set("spark.kryo.registrator", "org.apache.sedona.core.serde.SedonaKryoRegistrator")
   }
 
   override protected def beforeAll(): Unit = {

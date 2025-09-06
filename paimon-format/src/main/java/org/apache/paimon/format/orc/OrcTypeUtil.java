@@ -140,6 +140,9 @@ public class OrcTypeUtil {
             case ROW:
                 return convertToOrcSchema((RowType) type)
                         .setAttribute(PAIMON_ORC_FIELD_ID_KEY, String.valueOf(fieldId));
+            case GEOMETRY:
+                return TypeDescription.createBinary()
+                        .setAttribute(PAIMON_ORC_FIELD_ID_KEY, String.valueOf(fieldId));
             default:
                 throw new UnsupportedOperationException("Unsupported type: " + type);
         }

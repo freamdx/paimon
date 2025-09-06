@@ -28,6 +28,7 @@ import org.apache.paimon.fs.SeekableInputStream;
 import org.apache.paimon.options.Options;
 import org.apache.paimon.predicate.FieldRef;
 import org.apache.paimon.types.DataType;
+import org.apache.paimon.types.GeometryType;
 import org.apache.paimon.types.LocalZonedTimestampType;
 import org.apache.paimon.types.TimestampType;
 import org.apache.paimon.utils.RoaringBitmap32;
@@ -316,6 +317,10 @@ public class BitmapFileIndex implements FileIndexer {
     public static Function<Object, Object> getValueMapper(DataType dataType) {
         return dataType.accept(
                 new BitmapTypeVisitor<Function<Object, Object>>() {
+                    @Override
+                    public Function<Object, Object> visit(GeometryType geometryType) {
+                        throw new UnsupportedOperationException("Unsupported type: geometry");
+                    }
 
                     @Override
                     public Function<Object, Object> visitBinaryString() {
