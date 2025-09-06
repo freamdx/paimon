@@ -89,6 +89,7 @@ public class ParquetRowDataWriter {
                     return new BooleanWriter(t.isNullable());
                 case BINARY:
                 case VARBINARY:
+                case GEOMETRY:
                     return new BinaryWriter(t.isNullable());
                 case DECIMAL:
                     DecimalType decimalType = (DecimalType) t;

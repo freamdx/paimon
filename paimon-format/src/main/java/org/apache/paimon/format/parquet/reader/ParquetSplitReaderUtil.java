@@ -132,6 +132,7 @@ public class ParquetSplitReaderUtil {
             case CHAR:
             case VARCHAR:
             case VARBINARY:
+            case GEOMETRY:
                 checkArgument(
                         typeName == PrimitiveType.PrimitiveTypeName.BINARY,
                         "Unexpected type: %s",

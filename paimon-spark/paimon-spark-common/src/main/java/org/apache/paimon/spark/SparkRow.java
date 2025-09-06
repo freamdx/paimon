@@ -34,8 +34,10 @@ import org.apache.paimon.types.RowKind;
 import org.apache.paimon.types.RowType;
 import org.apache.paimon.utils.DateTimeUtils;
 
+import org.apache.sedona.sql.utils.GeometrySerializer;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.paimon.shims.SparkShimLoader;
+import org.locationtech.jts.geom.Geometry;
 
 import java.io.Serializable;
 import java.sql.Date;
@@ -142,7 +144,12 @@ public class SparkRow implements InternalRow, Serializable {
 
     @Override
     public byte[] getBinary(int i) {
-        return row.getAs(i);
+        Object obj = row.getAs(i);
+        if (obj instanceof Geometry) {
+            return GeometrySerializer.serialize((Geometry) obj);
+        } else {
+            return (byte[]) obj;
+        }
     }
 
     @Override

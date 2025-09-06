@@ -22,6 +22,7 @@ import org.apache.paimon.data.BinaryString;
 import org.apache.paimon.fs.SeekableInputStream;
 import org.apache.paimon.options.Options;
 import org.apache.paimon.types.DataType;
+import org.apache.paimon.types.GeometryType;
 
 import java.io.BufferedInputStream;
 import java.io.DataInput;
@@ -194,6 +195,11 @@ public class BitmapFileIndexMeta {
         return dataType.accept(
                 new BitmapTypeVisitor<Function<Object, Integer>>() {
                     @Override
+                    public Function<Object, Integer> visit(GeometryType geometryType) {
+                        throw new UnsupportedOperationException("Unsupported type: geometry");
+                    }
+
+                    @Override
                     public Function<Object, Integer> visitBinaryString() {
                         return o -> Integer.BYTES + ((BinaryString) o).getSizeInBytes();
                     }
@@ -238,6 +244,11 @@ public class BitmapFileIndexMeta {
     protected ThrowableConsumer getValueWriter(DataOutput out) {
         return dataType.accept(
                 new BitmapTypeVisitor<ThrowableConsumer>() {
+                    @Override
+                    public ThrowableConsumer visit(GeometryType geometryType) {
+                        throw new UnsupportedOperationException("Unsupported type: geometry");
+                    }
+
                     @Override
                     public ThrowableConsumer visitBinaryString() {
                         return o -> {
@@ -287,6 +298,11 @@ public class BitmapFileIndexMeta {
     protected ThrowableSupplier getValueReader(DataInput in) {
         return dataType.accept(
                 new BitmapTypeVisitor<ThrowableSupplier>() {
+                    @Override
+                    public ThrowableSupplier visit(GeometryType geometryType) {
+                        throw new UnsupportedOperationException("Unsupported type: geometry");
+                    }
+
                     @Override
                     public ThrowableSupplier visitBinaryString() {
                         return () -> {

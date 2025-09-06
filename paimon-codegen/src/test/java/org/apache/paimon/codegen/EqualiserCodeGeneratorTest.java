@@ -187,6 +187,17 @@ public class EqualiserCodeGeneratorTest {
                         Pair.of(
                                 GenericVariant.fromJson("{\"age\":27,\"city\":\"Beijing\"}"),
                                 GenericVariant.fromJson("{\"age\":27,\"city\":\"Hangzhou\"}"))));
+        byte[] geoL = {
+            22, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, -16, 63, 0, 0, 0, 0, 0, 0, 0, 64, 0, 0, 0, 0,
+            0, 0, 8, 64
+        };
+        byte[] geoR = {
+            25, 0, 16, -26, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, -16, 63, 0, 0, 0, 0, 0, 0, 0, 64, 0, 0, 0,
+            0, 0, 0, 8, 64, 0, 0, 0, 0, 0, 0, 16, 64
+        };
+        TEST_DATA.put(
+                DataTypeRoot.GEOMETRY,
+                new GeneratedData(DataTypes.GEOMETRY(), Pair.of(geoL, geoR)));
     }
 
     @ParameterizedTest
