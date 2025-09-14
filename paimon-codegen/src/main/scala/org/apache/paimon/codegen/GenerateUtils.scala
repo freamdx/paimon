@@ -121,7 +121,7 @@ object GenerateUtils {
       s"$leftTerm.compareTo($rightTerm)"
     case BOOLEAN =>
       s"($leftTerm == $rightTerm ? 0 : ($leftTerm ? 1 : -1))"
-    case BINARY | VARBINARY =>
+    case BINARY | VARBINARY | GEOMETRY =>
       val sortUtil =
         classOf[org.apache.paimon.utils.SortUtil].getCanonicalName
       s"$sortUtil.compareBinary($leftTerm, $rightTerm)"
@@ -582,7 +582,7 @@ object GenerateUtils {
       s"$writerTerm.writeString($indexTerm, $fieldValTerm)"
     case BOOLEAN =>
       s"$writerTerm.writeBoolean($indexTerm, $fieldValTerm)"
-    case BINARY | VARBINARY =>
+    case BINARY | VARBINARY | GEOMETRY =>
       s"$writerTerm.writeBinary($indexTerm, $fieldValTerm)"
     case DECIMAL =>
       s"$writerTerm.writeDecimal($indexTerm, $fieldValTerm, ${getPrecision(t)})"
