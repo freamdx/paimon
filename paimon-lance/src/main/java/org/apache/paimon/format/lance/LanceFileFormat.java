@@ -35,6 +35,7 @@ import org.apache.paimon.types.DateType;
 import org.apache.paimon.types.DecimalType;
 import org.apache.paimon.types.DoubleType;
 import org.apache.paimon.types.FloatType;
+import org.apache.paimon.types.GeometryType;
 import org.apache.paimon.types.IntType;
 import org.apache.paimon.types.LocalZonedTimestampType;
 import org.apache.paimon.types.MapType;
@@ -202,6 +203,11 @@ public class LanceFileFormat extends FileFormat {
                 field.type().accept(this);
             }
             return null;
+        }
+
+        @Override
+        public Void visit(GeometryType geometryType) {
+            throw new UnsupportedOperationException("unsupported type: geometry");
         }
     }
 }
