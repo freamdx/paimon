@@ -331,6 +331,7 @@ public final class DataTypeJsonParser {
         LEGACY,
         VARIANT,
         BLOB,
+        GEOMETRY,
         NOT
     }
 
@@ -551,6 +552,8 @@ public final class DataTypeJsonParser {
                     return new BlobType();
                 case VECTOR:
                     return parseVectorType();
+                case GEOMETRY:
+                    return new GeometryType();
                 default:
                     throw parsingError("Unsupported type: " + token().value);
             }

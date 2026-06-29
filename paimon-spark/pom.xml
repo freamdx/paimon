@@ -33,6 +33,11 @@ under the License.
 
     <packaging>pom</packaging>
 
+    <properties>
+        <compact.version>3.5</compact.version>
+        <sedona.version>1.7.2</sedona.version>
+    </properties>
+
     <modules>
         <module>paimon-spark-common</module>
         <module>paimon-spark-ut</module>
@@ -153,6 +158,22 @@ under the License.
                     <exclusion>
                         <groupId>org.apache.logging.log4j</groupId>
                         <artifactId>log4j-slf4j2-impl</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.apache.orc</groupId>
+                        <artifactId>orc-core</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.apache.orc</groupId>
+                        <artifactId>orc-mapreduce</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.apache.parquet</groupId>
+                        <artifactId>parquet-column</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.apache.parquet</groupId>
+                        <artifactId>parquet-hadoop</artifactId>
                     </exclusion>
                 </exclusions>
             </dependency>
@@ -297,6 +318,13 @@ under the License.
             <artifactId>mockwebserver</artifactId>
             <version>${okhttp.version}</version>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.sedona</groupId>
+            <artifactId>sedona-spark-shaded-${compact.version}_${scala.binary.version}</artifactId>
+            <version>${sedona.version}</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 

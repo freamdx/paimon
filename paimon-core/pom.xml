@@ -284,6 +284,13 @@ under the License.
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>com.google.protobuf</groupId>
+            <artifactId>protobuf-java</artifactId>
+            <version>${protobuf-java.version}</version>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
     <build>

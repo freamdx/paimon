@@ -28,7 +28,7 @@ import java.util.Objects;
  * @since 0.4.0
  */
 @Public
-public final class VarBinaryType extends DataType {
+public class VarBinaryType extends DataType {
 
     private static final long serialVersionUID = 1L;
 
